@@ -19,14 +19,27 @@
 <body onload="init()">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Navbar</span>
+            <span class="navbar-brand mb-0 h1">Quiz App</span>
         </div>
     </nav>
 
     <div class="container">
         <div class="card question-width">
             <img src="./img/quiz-img.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
+
+            <div class="card-body" id="quiz-end" style="display: none;">
+                <div class="quiz-end-title">
+                    <span>Quiz beendet!</span>
+                </div>
+                <div>
+                    <img class="width-100" src="./img/win.png">
+                </div>
+                <div>
+                    <span class="text-center">Du hast von <b>XXX</b> Fragen <b>XXX</b> richtig beantwortet!</span>
+                </div>
+            </div>
+
+            <div class="card-body" id="quiz-start">
 
                 <h5 class="card-title" id="questiontext">Frage</h5>
 
@@ -60,6 +73,7 @@
             </div>
 
         </div>
+        
     </div>
 </body>
 

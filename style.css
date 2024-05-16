@@ -7,7 +7,7 @@ body{
     display:flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 90vh;
     margin: 0;
 }
 
@@ -19,7 +19,7 @@ body{
 }
 
 .question-width{
-   width:  25rem;
+    width:25rem;
 }
 
 .quiz-card:hover{
@@ -31,4 +31,18 @@ body{
 .bg-danger
 {
     color: white !important;
+}
+
+.width-100{
+    width:100%;
+}
+
+.quiz-end-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.text-center{
+    text-align: center;
 }

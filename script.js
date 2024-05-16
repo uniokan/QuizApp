@@ -59,18 +59,30 @@ function init() {
 
 function showQuestion() {
     let question = questions[currentQuestion];
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
 
-    showTheNumberOfQuestion();
+    if (currentQuestion < questions.length) {
+        document.getElementById('questiontext').innerHTML = question['question'];
+        document.getElementById('answer_1').innerHTML = question['answer_1'];
+        document.getElementById('answer_2').innerHTML = question['answer_2'];
+        document.getElementById('answer_3').innerHTML = question['answer_3'];
+        document.getElementById('answer_4').innerHTML = question['answer_4'];
+        showTheNumberOfQuestion();
+    }
+
+    else {
+        showEndScreen();
+    }
+}
+
+function showEndScreen() {
+  document.getElementById('quiz-end').style.display='block';
+  document.getElementById('quiz-start').style.display='none';
+
 }
 
 function showTheNumberOfQuestion() {
     let numberHTML = document.getElementById('question-number');
-    numberHTML.innerHTML=currentQuestion+1;
+    numberHTML.innerHTML = currentQuestion + 1;
 }
 
 function answer(selection) {
