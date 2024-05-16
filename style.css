@@ -56,7 +56,7 @@ body{
 .container-content{
     display:flex;
     flex-direction: row-reverse;
-    height:700px;
+    height:750px;
 }
 
 .quiz-bar-img{
@@ -84,3 +84,11 @@ body{
     justify-content: space-between;
     padding: 0 40px 0 8px;
 }
+
+#quiz-end{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:8px;
+}
+

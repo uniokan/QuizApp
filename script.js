@@ -49,6 +49,8 @@ let questions = [
 
 let currentQuestion = 0;
 let correctAnswerCounter = 0;
+let AUDIO_SUCCESS = new Audio('sound/success.mp3');
+let AUDIO_WRONG = new Audio('sound/error.mp3');
 
 function init() {
     let amountOfQuestions = document.getElementById('amount-of-questions');
@@ -60,28 +62,36 @@ function init() {
 function showQuestion() {
     let question = questions[currentQuestion];
 
-    if (currentQuestion < questions.length) {
-        document.getElementById('questiontext').innerHTML = question['question'];
-        document.getElementById('answer_1').innerHTML = question['answer_1'];
-        document.getElementById('answer_2').innerHTML = question['answer_2'];
-        document.getElementById('answer_3').innerHTML = question['answer_3'];
-        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if (questionsStillOpen()) {
+        listTheQuestions(question)
         showTheNumberOfQuestion();
         showLineOnCategorie();
         calcPercentOfProgressBar();
     }
 
     else {
-        showEndScreen();
         showCorrectAnswers();
         calcPercentOfProgressBar();
+        showEndScreen();
     }
 }
 
-function showEndScreen() {
-    document.getElementById('quiz-end').style.display = 'block';
-    document.getElementById('quiz-start').style.display = 'none';
+function listTheQuestions(question) {
+    document.getElementById('questiontext').innerHTML = question['question'];
+    document.getElementById('answer_1').innerHTML = question['answer_1'];
+    document.getElementById('answer_2').innerHTML = question['answer_2'];
+    document.getElementById('answer_3').innerHTML = question['answer_3'];
+    document.getElementById('answer_4').innerHTML = question['answer_4'];
 
+}
+
+function questionsStillOpen() {
+    return currentQuestion < questions.length;
+}
+
+function showEndScreen() {
+    document.getElementById('quiz-end').style.display = 'flex';
+    document.getElementById('quiz-start').style.display = 'none';
 }
 
 function showTheNumberOfQuestion() {
@@ -94,17 +104,30 @@ function answer(selection) {
     let right_answer_index = question['right_answer'];
     let right_answer = Object.keys(question)[right_answer_index]; // Bekommen den Schlüssel vom jeweilligen Objekt
 
-    if (selection == right_answer) {
-        document.getElementById(selection).parentNode.classList.add('bg-success');
-        correctAnswerCounter++;
+    if (checkSelectedAnswer(selection, right_answer)) {
+        rightAnswer(selection);
     }
 
     else {
-        document.getElementById(selection).parentNode.classList.add('bg-danger');
-        document.getElementById(right_answer).parentNode.classList.add('bg-success');
+        falseAnswer(selection, right_answer);
     }
     enableBtn();
+}
 
+function checkSelectedAnswer(selection, right_answer) {
+    return selection == right_answer;
+}
+
+function rightAnswer(selection) {
+    document.getElementById(selection).parentNode.classList.add('bg-success');
+    AUDIO_SUCCESS.play();
+    correctAnswerCounter++;
+}
+
+function falseAnswer(selection, right_answer) {
+    document.getElementById(selection).parentNode.classList.add('bg-danger');
+    document.getElementById(right_answer).parentNode.classList.add('bg-success');
+    AUDIO_WRONG.play();
 }
 
 function enableBtn() {
@@ -148,22 +171,34 @@ function showCorrectAnswers() {
     let getAmountOfQuestions = questions.length;
     let amountOfQuestions = document.getElementById('amout-questions-end');
     let correctAnswer = document.getElementById('amount-correct-answers');
-    
-    amountOfQuestions.innerHTML=getAmountOfQuestions;
-    correctAnswer.innerHTML=correctAnswerCounter;
+
+    amountOfQuestions.innerHTML = getAmountOfQuestions;
+    correctAnswer.innerHTML = correctAnswerCounter;
 }
 
-function calcPercentOfProgressBar(){
+function calcPercentOfProgressBar() {
     let calc = currentQuestion / questions.length;
-    calc*=100;
+    let percent = Math.round(calc *= 100);
 
-    showPercentInProgressBar(calc);
+    showPercentInProgressBar(percent);
 }
 
-function showPercentInProgressBar(calc){
+function showPercentInProgressBar(percent) {
     let getProgessBar = document.getElementById('progress-bar');
 
-    getProgessBar.innerHTML=calc.toFixed(0) + '%';
-    getProgessBar.style=`width:${calc}%`;
+    getProgessBar.innerHTML = percent + '%';
+    getProgessBar.style = `width:${percent}%`;
 
+}
+
+function restart() {
+    resetVariables();
+    document.getElementById('quiz-end').style.display = 'none';
+    document.getElementById('quiz-start').style.display = 'block';
+    showQuestion();
+}
+
+function resetVariables(){
+    currentQuestion = 0;
+    correctAnswerCounter = 0;
 }
