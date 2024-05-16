@@ -67,6 +67,7 @@ function showQuestion() {
         document.getElementById('answer_3').innerHTML = question['answer_3'];
         document.getElementById('answer_4').innerHTML = question['answer_4'];
         showTheNumberOfQuestion();
+        showLineOnCategorie();
     }
 
     else {
@@ -75,8 +76,8 @@ function showQuestion() {
 }
 
 function showEndScreen() {
-  document.getElementById('quiz-end').style.display='block';
-  document.getElementById('quiz-start').style.display='none';
+    document.getElementById('quiz-end').style.display = 'block';
+    document.getElementById('quiz-start').style.display = 'none';
 
 }
 
@@ -111,6 +112,7 @@ function disableBtn() {
 }
 
 function nextQuestion() {
+    removeLineOnCategorie();
     currentQuestion++;
     disableBtn();
     removeAnswerBg();
@@ -128,3 +130,12 @@ function removeAnswerBg() {
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
 }
 
+function showLineOnCategorie() {
+    let getCategorie = document.getElementById(`categorie-${currentQuestion + 1}`);
+    getCategorie.classList.add('line');
+}
+
+function removeLineOnCategorie() {
+    let getCategorie = document.getElementById(`categorie-${currentQuestion + 1}`);
+    getCategorie.classList.remove('line');
+}
