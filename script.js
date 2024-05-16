@@ -68,11 +68,13 @@ function showQuestion() {
         document.getElementById('answer_4').innerHTML = question['answer_4'];
         showTheNumberOfQuestion();
         showLineOnCategorie();
+        calcPercentOfProgressBar();
     }
 
     else {
         showEndScreen();
         showCorrectAnswers();
+        calcPercentOfProgressBar();
     }
 }
 
@@ -149,5 +151,19 @@ function showCorrectAnswers() {
     
     amountOfQuestions.innerHTML=getAmountOfQuestions;
     correctAnswer.innerHTML=correctAnswerCounter;
+}
+
+function calcPercentOfProgressBar(){
+    let calc = currentQuestion / questions.length;
+    calc*=100;
+
+    showPercentInProgressBar(calc);
+}
+
+function showPercentInProgressBar(calc){
+    let getProgessBar = document.getElementById('progress-bar');
+
+    getProgessBar.innerHTML=calc.toFixed(0) + '%';
+    getProgessBar.style=`width:${calc}%`;
 
 }
