@@ -48,7 +48,7 @@ let questions = [
 ]
 
 let currentQuestion = 0;
-
+let correctAnswerCounter = 0;
 
 function init() {
     let amountOfQuestions = document.getElementById('amount-of-questions');
@@ -72,6 +72,7 @@ function showQuestion() {
 
     else {
         showEndScreen();
+        showCorrectAnswers();
     }
 }
 
@@ -93,6 +94,7 @@ function answer(selection) {
 
     if (selection == right_answer) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        correctAnswerCounter++;
     }
 
     else {
@@ -138,4 +140,14 @@ function showLineOnCategorie() {
 function removeLineOnCategorie() {
     let getCategorie = document.getElementById(`categorie-${currentQuestion + 1}`);
     getCategorie.classList.remove('line');
+}
+
+function showCorrectAnswers() {
+    let getAmountOfQuestions = questions.length;
+    let amountOfQuestions = document.getElementById('amout-questions-end');
+    let correctAnswer = document.getElementById('amount-correct-answers');
+    
+    amountOfQuestions.innerHTML=getAmountOfQuestions;
+    correctAnswer.innerHTML=correctAnswerCounter;
+
 }
